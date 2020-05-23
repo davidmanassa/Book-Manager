@@ -1,1 +1,25 @@
-SD-TP2
+# TP2
+
+## OBJETIVOS
+
+- **Base de dados** (Percistência de dados);
+- **Interface Web** em **Java Server Faces** (usando **entities** e **enterprese javabeans**);
+- Dois tipos de utilizadores: **Não Registados** (Consultar informação) **Registados** (Inserir, Requesitar, Reservar, Remover, Consultar).
+
+## TO DO 
+- Desenhar o modelo de dados;
+- Implementar a base de dados (Qualquer SGBG);
+- Implementar lógica da Aplicação;
+- Implementar a sua visualização.
+
+## Após desenvolvimento
+- Publicar fora do contexto de um IDE (ex. NetBeans);
+- Aceder de outras máquinas.
+
+## Relatório
+- Máximo de __10__ páginas;
+Modelo:
+- Introdução, com a descrição da aplicação;
+- Modelo de dados e arquitectura da aplicação;
+- Um pequeno manual de configuração e instalação.
+
