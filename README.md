@@ -17,9 +17,13 @@
 - Aceder de outras máquinas.
 
 ## Relatório
-- Máximo de __10__ páginas;
+Máximo de __10__ páginas;
+<br>
 Modelo:
 - Introdução, com a descrição da aplicação;
 - Modelo de dados e arquitectura da aplicação;
 - Um pequeno manual de configuração e instalação.
 
+## Ferramentas utilizadas:
+- GlassFish Server 4.1.1
+- Java EE 7 Web
