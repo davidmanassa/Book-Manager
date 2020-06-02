@@ -24,6 +24,6 @@ Modelo:
 - Modelo de dados e arquitectura da aplicação;
 - Um pequeno manual de configuração e instalação.
 
-## Ferramentas utilizadas:
+## Ferramentas utilizadas
 - GlassFish Server 4.1.1
 - Java EE 7 Web
