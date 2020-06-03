@@ -37,8 +37,10 @@ public class LivroBean {
     }
     
     public void removeLivro(Livro livro) {
-        em.getTransaction().begin();
+        if (!em.contains(livro)) {
+            livro = em.merge(livro);
+        }
+            
         em.remove(livro);
-        em.getTransaction().commit();
     }
 }

@@ -23,16 +23,26 @@ public class PedidoControler {
     
     ELContext elContext = FacesContext.getCurrentInstance().getELContext();
     LivroControler lc = (LivroControler) elContext.getELResolver().getValue(elContext, null, "LivroControler");
+    
     ELContext elContext1 = FacesContext.getCurrentInstance().getELContext();
-    Login login = (Login) elContext1.getELResolver().getValue(elContext1, null, "Login");
+    UtilizadorControler uc = (UtilizadorControler) elContext1.getELResolver().getValue(elContext1, null, "UtilizadorControler");
     
     List<Pedido> pedidoList = new ArrayList<>(); // ALL REQUESTS
     List<Pedido> myPedidoList = new ArrayList<>();
     
     Pedido novoPedido = new Pedido();
-    
-    String novoLivroID = "1";
+   
     String removePedidoID = "0";
+    
+    String pedidoErrorMessage = "";
+
+    public String getPedidoErrorMessage() {
+        return pedidoErrorMessage;
+    }
+
+    public void setPedidoErrorMessage(String pedidoErrorMessage) {
+        this.pedidoErrorMessage = pedidoErrorMessage;
+    }
 
     public String getRemovePedidoID() {
         return removePedidoID;
@@ -42,16 +52,23 @@ public class PedidoControler {
         this.removePedidoID = removePedidoID;
     }
 
-    public void setNovoLivroID(String novoLivroID) {
-        this.novoLivroID = novoLivroID;
-    }
-
-    public String getNovoLivroID() {
-        return novoLivroID;
-    }
-
     public Pedido getNovoPedido() {
         return novoPedido;
+    }
+    
+    public String getEstado(Pedido pedido) {
+        int counter = 0;
+        for (Pedido p : pedidoList) {
+            if (p.getIdPedido().intValue() == pedido.getIdPedido().intValue() && counter == 0)
+                return "Requisitado";
+            if (p.getIdLivro().getIdLivro().intValue() == pedido.getIdLivro().getIdLivro().intValue()) {
+                if (p.getIdUtilizador().getIdUtilizador().intValue() == pedido.getIdUtilizador().getIdUtilizador().intValue())
+                    return "Reservado (" + counter + "º na fila)";
+                else
+                    counter += 1;
+            }
+        }
+        return "Pedido não encontrado";
     }
 
     public void setNovoPedido(Pedido novoPedido) {
@@ -69,23 +86,31 @@ public class PedidoControler {
         return "registered.xhtml";
     }
     
-    public String addNewPedido() {
+    public String removePedido(Pedido pedido) {
+        pedidoBean.removePedido(pedido);
+        return "registered.xhtml";
+    }
+    
+    public String addNewPedido(Livro livro) {
         
-        Integer bookID = -1;
-        try {
-            bookID = Integer.parseInt(novoLivroID);
-        } catch (NumberFormatException e) {
-            
-        }
-        novoPedido.setIdLivro(lc.getLivro(bookID));
+        novoPedido.setIdLivro(livro);
         
-        novoPedido.setIdUtilizador(login.getMyUser());
+        novoPedido.setIdUtilizador(uc.getMyUser());
         
         novoPedido.setDate((BigInteger.valueOf(java.lang.System.currentTimeMillis())));
+        
+        for (Pedido p : pedidoList) {
+            if (p.getIdUtilizador().getIdUtilizador().intValue() == novoPedido.getIdUtilizador().getIdUtilizador().intValue())
+                if (p.getIdLivro().getIdLivro().intValue() == livro.getIdLivro().intValue()) {
+                    setPedidoErrorMessage("Já fizeste um pedido a este objeto.");
+                    return "registered.xhtml";    
+                }
+        }
         
         pedidoBean.addPedido(novoPedido);
         
         pedidoList = pedidoBean.getPedidos();
+        
         return "registered.xhtml";
     }
     
@@ -96,12 +121,14 @@ public class PedidoControler {
 
     public List<Pedido> getMyPedidoList() {
         pedidoList = pedidoBean.getPedidos();
-        if (login.getMyUser() == null) {
+        if (uc.getMyUser() == null) {
             return new ArrayList<>();
         }
+        if (getPedidoList() == null)
+            return new ArrayList<>();
         myPedidoList = new ArrayList<>();
-        for (Pedido p : pedidoList)
-            if (p.getIdUtilizador().getIdUtilizador().intValue() == login.getMyUser().getIdUtilizador().intValue())
+        for (Pedido p : getPedidoList())
+            if (p.getIdUtilizador().getIdUtilizador().intValue() == uc.getMyUser().getIdUtilizador().intValue())
                 myPedidoList.add(p);
         return myPedidoList;
     }

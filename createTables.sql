@@ -1,7 +1,6 @@
 CREATE TABLE Utilizador (
     ID_Utilizador INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1,  INCREMENT BY 1),
     Nome_Utilizador varchar(255) NOT NULL,
-    Salt varchar(255),
     Password varchar(255),
     PRIMARY KEY (ID_Utilizador)
 );

@@ -18,9 +18,48 @@ public class LivroControler {
     List<Livro> livroList = new ArrayList<>();
     
     Livro novoLivro = new Livro();
+    
+    String removeLivroID;
+    String errorMessageRemove = "";
+
+    public String getErrorMessageRemove() {
+        return errorMessageRemove;
+    }
+
+    public void setErrorMessageRemove(String errorMessageRemove) {
+        this.errorMessageRemove = errorMessageRemove;
+    }
+
+    public String getRemoveLivroID() {
+        return removeLivroID;
+    }
+
+    public void setRemoveLivroID(String removeLivroID) {
+        this.removeLivroID = removeLivroID;
+    }
 
     public Livro getNovoLivro() {
         return novoLivro;
+    }
+    
+    public String removeLivro() {
+        Livro toRemove = null;
+        try {
+            int id = Integer.parseInt(removeLivroID);
+            toRemove = livroBean.getLivro(id);
+        } catch (NumberFormatException e) {
+            setErrorMessageRemove("O ID do livro deve ser um inteiro.");
+            return "listLivros.xhtml";
+        } catch (Exception e) {
+            setErrorMessageRemove("Livro não encontrado.");
+            return "listLivros.xhtml";
+        }
+        if (toRemove == null) {
+            setErrorMessageRemove("Livro não encontrado.");
+            return "listLivros.xhtml";
+        }
+        livroBean.removeLivro(toRemove);
+        return "listLivros.xhtml";
     }
 
     public void setNovoLivro(Livro novoLivro) {

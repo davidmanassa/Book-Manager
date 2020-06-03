@@ -33,7 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Utilizador.findAll", query = "SELECT u FROM Utilizador u")
     , @NamedQuery(name = "Utilizador.findByIdUtilizador", query = "SELECT u FROM Utilizador u WHERE u.idUtilizador = :idUtilizador")
     , @NamedQuery(name = "Utilizador.findByNomeUtilizador", query = "SELECT u FROM Utilizador u WHERE u.nomeUtilizador = :nomeUtilizador")
-    , @NamedQuery(name = "Utilizador.findBySalt", query = "SELECT u FROM Utilizador u WHERE u.salt = :salt")
     , @NamedQuery(name = "Utilizador.findByPassword", query = "SELECT u FROM Utilizador u WHERE u.password = :password")})
 public class Utilizador implements Serializable {
 
@@ -48,9 +47,6 @@ public class Utilizador implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "NOME_UTILIZADOR")
     private String nomeUtilizador;
-    @Size(max = 255)
-    @Column(name = "SALT")
-    private String salt;
     @Size(max = 255)
     @Column(name = "PASSWORD")
     private String password;
@@ -83,14 +79,6 @@ public class Utilizador implements Serializable {
 
     public void setNomeUtilizador(String nomeUtilizador) {
         this.nomeUtilizador = nomeUtilizador;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public String getPassword() {

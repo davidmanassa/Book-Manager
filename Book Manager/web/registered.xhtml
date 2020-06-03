@@ -7,21 +7,16 @@
         <title>Menu de registado</title>
     </h:head>
     <h:body>
+        
+        <h1><h:outputText value="Menu de #{UtilizadorControler.myUser.nomeUtilizador}"/></h1>
+        
         <h:form>
-            <h:commandButton value="Fazer pedido" action="addPedido" />
-            <h:commandButton value="Remover pedido" action="removePedido" />
-        </h:form>  <br></br> <br></br>
-        <h:form>
-            <h:commandButton value="Listar Livros" action="listLivros" />
-            <h:commandButton value="Adiconar Livro" action="addNewLivro" />
-            <h:commandButton value="Remover Livro" action="removeLivro" />
-        </h:form> <br></br> <br></br>
-        <h:form>
-            <h:commandButton value="Listar Utilizadores" action="listUtilizadores" />
-            <h:commandButton value="Adiconar Utilizador" action="addNewUtilizador" />
-            <h:commandButton value="Remover Utilizador" action="removeUtilizador" />
-        </h:form>  <br></br> <br></br>
-        Lista de meus pedidos
+            <h:commandButton value="Utilizadores" action="listUtilizadores" />
+            <p>   </p>
+            <h:commandButton value="Livros" action="listLivros" />
+        </h:form>
+        
+        <h1>Lista de meus pedidos</h1>
         <h:dataTable value="#{PedidoControler.myPedidoList}" var="pedido" border="2">
             <h:column>
                 <f:facet name="header">
@@ -37,11 +32,68 @@
             </h:column>
             <h:column>
                 <f:facet name="header">
+                    <h:outputText value="Estado"/>
+                </f:facet>
+                <h:outputText value="#{PedidoControler.getEstado(pedido)}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
                     <h:outputText value="Data"/>
                 </f:facet>
                 <h:outputText value="#{PedidoControler.getDate(pedido)}"/>
             </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Ações"/>
+                </f:facet>
+                <h:form>
+                    <h:commandButton value="Remover/Devolver" action="#{PedidoControler.removePedido(pedido)}"/>
+                </h:form>
+            </h:column>
         </h:dataTable>
+        
+        <!-- Fazer pedido -->
+        <h1>Lista de Livros</h1>
+        <h:dataTable value="#{LivroControler.livroList}" var="livro" border="1">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Livro ID"/>
+                </f:facet>
+                <h:outputText value="#{livro.idLivro}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Nome"/>
+                </f:facet>
+                <h:outputText value="#{livro.nomeLivro}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Autor"/>
+                </f:facet>
+                <h:outputText value="#{livro.autorLivro}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Edição"/>
+                </f:facet>
+                <h:outputText value="#{livro.edicaoLivro}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Ações"/>
+                </f:facet>
+                <h:form>
+                    <h:commandButton value="Reservar/Requesitar" action="#{PedidoControler.addNewPedido(livro)}"/>
+                </h:form>
+            </h:column>
+        </h:dataTable>
+        <h:outputText value=" #{PedidoControler.pedidoErrorMessage}" style="color:red"/>
+        <br></br>
+        
+        <h:form>
+            <h:commandButton value="Logout" action="index"/>
+        </h:form>
     </h:body>
 </html>
 

@@ -16,7 +16,7 @@ public class UtilizadorBean {
         em.persist(object);
     }
 
-      public List<Utilizador> getUtilizadores() {
+    public List<Utilizador> getUtilizadores() {
         return (List<Utilizador>) em.createNamedQuery("Utilizador.findAll").getResultList();
     }
     
@@ -30,9 +30,11 @@ public class UtilizadorBean {
     }
     
     public void removeUtilizador(Utilizador utilizador) {
-        em.getTransaction().begin();
+        if (!em.contains(utilizador)) {
+            utilizador = em.merge(utilizador);
+        }
+            
         em.remove(utilizador);
-        em.getTransaction().commit();
     }
     
 }
