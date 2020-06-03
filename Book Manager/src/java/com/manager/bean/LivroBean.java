@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.manager.bean;
 
 import com.manager.book.Livro;
@@ -12,9 +7,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
- * @author manas
+ * 
+ * Comunicação com a base de dados
+ * Persistência de dados
+ * 
  */
+
 @Stateless
 public class LivroBean {
 
@@ -32,5 +30,15 @@ public class LivroBean {
     public Livro addLivro(Livro livro) {
         em.persist(livro);
         return livro;
+    }
+    
+    public Livro getLivro(int id) {
+        return em.find(Livro.class, id);
+    }
+    
+    public void removeLivro(Livro livro) {
+        em.getTransaction().begin();
+        em.remove(livro);
+        em.getTransaction().commit();
     }
 }

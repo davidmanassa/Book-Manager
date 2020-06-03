@@ -6,6 +6,7 @@
 package com.manager.book;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,7 +40,7 @@ public class Pedido implements Serializable {
     @Column(name = "ID_PEDIDO")
     private Integer idPedido;
     @Column(name = "DATE")
-    private Integer date;
+    private BigInteger date;
     @JoinColumn(name = "ID_LIVRO", referencedColumnName = "ID_LIVRO")
     @ManyToOne
     private Livro idLivro;
@@ -62,11 +63,11 @@ public class Pedido implements Serializable {
         this.idPedido = idPedido;
     }
 
-    public Integer getDate() {
+    public BigInteger getDate() {
         return date;
     }
 
-    public void setDate(Integer date) {
+    public void setDate(BigInteger date) {
         this.date = date;
     }
 

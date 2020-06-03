@@ -39,4 +39,8 @@ public class LivroControler {
         return livroList;
     }
     
+    public Livro getLivro(int id) {
+        return livroBean.getLivro(id);
+    }
+    
 }

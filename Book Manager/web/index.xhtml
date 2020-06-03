@@ -9,7 +9,8 @@
         <h:form>
             <input type="text" name="Username" value="admin" /> <br></br>
             <input type="password" name="Password" value="admin" /> <br></br>
-            <h:commandButton value="Login" action="registered" /> <br></br>
+            <h:commandButton value="Login" action="registered" />
+            <h:outputText value=" #{Login.failMessage}"/> <br></br>
         </h:form> <br></br>
         <h:form>
             <h:commandButton value="Listar Livros" action="listLivros" />

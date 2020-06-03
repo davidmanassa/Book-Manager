@@ -1,25 +1,47 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Menu de registado</title>
     </h:head>
     <h:body>
         <h:form>
-            <h:commandButton value="Fazer pedido" action="requestBook" />
-            <h:commandButton value="Remover pedido" action="removeRequest" />
+            <h:commandButton value="Fazer pedido" action="addPedido" />
+            <h:commandButton value="Remover pedido" action="removePedido" />
         </h:form>  <br></br> <br></br>
         <h:form>
             <h:commandButton value="Listar Livros" action="listLivros" />
-            <h:commandButton value="Adiconar Livro" action="addNewBook" />
-            <h:commandButton value="Remover Livro" action="removeBook" />
+            <h:commandButton value="Adiconar Livro" action="addNewLivro" />
+            <h:commandButton value="Remover Livro" action="removeLivro" />
         </h:form> <br></br> <br></br>
         <h:form>
-            <h:commandButton value="Listar Utilizadores" action="listUsers" />
-            <h:commandButton value="Adiconar Utilizador" action="addNewUser" />
-            <h:commandButton value="Remover Utilizador" action="removeUser" />
-        </h:form>
+            <h:commandButton value="Listar Utilizadores" action="listUtilizadores" />
+            <h:commandButton value="Adiconar Utilizador" action="addNewUtilizador" />
+            <h:commandButton value="Remover Utilizador" action="removeUtilizador" />
+        </h:form>  <br></br> <br></br>
+        Lista de meus pedidos
+        <h:dataTable value="#{PedidoControler.myPedidoList}" var="pedido" border="2">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="ID"/>
+                </f:facet>
+                <h:outputText value="#{pedido.idPedido}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Livro"/>
+                </f:facet>
+                <h:outputText value="#{pedido.idLivro.nomeLivro}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Data"/>
+                </f:facet>
+                <h:outputText value="#{PedidoControler.getDate(pedido)}"/>
+            </h:column>
+        </h:dataTable>
     </h:body>
 </html>
 
