@@ -11,7 +11,7 @@ public class UtilizadorBean {
 
     @PersistenceContext(unitName = "Book_ManagerPU")
     private EntityManager em;
-
+    
     public void persist(Object object) {
         em.persist(object);
     }
@@ -36,5 +36,6 @@ public class UtilizadorBean {
             
         em.remove(utilizador);
     }
+
     
 }

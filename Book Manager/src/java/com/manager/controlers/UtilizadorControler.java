@@ -2,6 +2,7 @@ package com.manager.controlers;
 
 import com.manager.bean.UtilizadorBean;
 import com.manager.book.Utilizador;
+import com.sun.webkit.Utilities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,15 @@ public class UtilizadorControler implements Serializable {
     String password = "admin";
     
     String removeUtilizadorError = "";
+    String addUtilizadorError = "";
+
+    public String getAddUtilizadorError() {
+        return addUtilizadorError;
+    }
+
+    public void setAddUtilizadorError(String addUtilizadorError) {
+        this.addUtilizadorError = addUtilizadorError;
+    }
 
     public String getFailMessage() {
         return failMessage;
@@ -101,9 +111,17 @@ public class UtilizadorControler implements Serializable {
     public String addNewUtilizador() {
         
         try {
+            
+            for (Utilizador u : utilizadorList) {
+                if (u.getUsername().equalsIgnoreCase(username)) {
+                    setAddUtilizadorError("Já existe um utilizador com esse username.");
+                    return "listUtilizadores.xhtml";
+                }
+            }
+            
             String encrypted = Password.getSaltedHash(password);
             
-            novoUtilizador.setNomeUtilizador(username);
+            novoUtilizador.setUsername(username);
             novoUtilizador.setPassword(encrypted);
             
             utilizadorBean.addUtilizador(novoUtilizador);
@@ -111,7 +129,7 @@ public class UtilizadorControler implements Serializable {
             utilizadorList = utilizadorBean.getUtilizadores();
         
         } catch (Exception e) {
-            
+            e.printStackTrace();
         }
         return "listUtilizadores.xhtml";
     }
@@ -122,7 +140,7 @@ public class UtilizadorControler implements Serializable {
     
     public Utilizador getUtilizador(String username) {
         for (Utilizador u : getUtilizadorList())
-            if (u.getNomeUtilizador().equals(username))
+            if (u.getUsername().equals(username))
                 return u;
         return null;
     }

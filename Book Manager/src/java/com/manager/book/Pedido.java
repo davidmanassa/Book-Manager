@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.manager.book;
 
 import java.io.Serializable;
@@ -20,47 +15,46 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author manas
- */
 @Entity
-@Table(name = "PEDIDO")
+@Table(name = "pedido")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pedido.findAll", query = "SELECT p FROM Pedido p")
-    , @NamedQuery(name = "Pedido.findByIdPedido", query = "SELECT p FROM Pedido p WHERE p.idPedido = :idPedido")
-    , @NamedQuery(name = "Pedido.findByDate", query = "SELECT p FROM Pedido p WHERE p.date = :date")})
+    , @NamedQuery(name = "Pedido.findById", query = "SELECT p FROM Pedido p WHERE p.id = :id")
+    , @NamedQuery(name = "Pedido.findByDate", query = "SELECT p FROM Pedido p WHERE p.date = :date")
+    , @NamedQuery(name = "Pedido.findByReturnDate", query = "SELECT p FROM Pedido p WHERE p.returnDate = :returnDate")})
 public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID_PEDIDO")
-    private Integer idPedido;
-    @Column(name = "DATE")
+    @Column(name = "ID")
+    private Integer id;
+    @Column(name = "Date")
     private BigInteger date;
-    @JoinColumn(name = "ID_LIVRO", referencedColumnName = "ID_LIVRO")
-    @ManyToOne
-    private Livro idLivro;
-    @JoinColumn(name = "ID_UTILIZADOR", referencedColumnName = "ID_UTILIZADOR")
-    @ManyToOne
-    private Utilizador idUtilizador;
+    @Column(name = "ReturnDate")
+    private BigInteger returnDate;
+    @JoinColumn(name = "BookID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Livro bookID;
+    @JoinColumn(name = "UserID", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Utilizador userID;
 
     public Pedido() {
     }
 
-    public Pedido(Integer idPedido) {
-        this.idPedido = idPedido;
+    public Pedido(Integer id) {
+        this.id = id;
     }
 
-    public Integer getIdPedido() {
-        return idPedido;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdPedido(Integer idPedido) {
-        this.idPedido = idPedido;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public BigInteger getDate() {
@@ -71,26 +65,34 @@ public class Pedido implements Serializable {
         this.date = date;
     }
 
-    public Livro getIdLivro() {
-        return idLivro;
+    public BigInteger getReturnDate() {
+        return returnDate;
     }
 
-    public void setIdLivro(Livro idLivro) {
-        this.idLivro = idLivro;
+    public void setReturnDate(BigInteger returnDate) {
+        this.returnDate = returnDate;
     }
 
-    public Utilizador getIdUtilizador() {
-        return idUtilizador;
+    public Livro getBookID() {
+        return bookID;
     }
 
-    public void setIdUtilizador(Utilizador idUtilizador) {
-        this.idUtilizador = idUtilizador;
+    public void setBookID(Livro bookID) {
+        this.bookID = bookID;
+    }
+
+    public Utilizador getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Utilizador userID) {
+        this.userID = userID;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idPedido != null ? idPedido.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -101,7 +103,7 @@ public class Pedido implements Serializable {
             return false;
         }
         Pedido other = (Pedido) object;
-        if ((this.idPedido == null && other.idPedido != null) || (this.idPedido != null && !this.idPedido.equals(other.idPedido))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -109,7 +111,7 @@ public class Pedido implements Serializable {
 
     @Override
     public String toString() {
-        return "com.manager.book.Pedido[ idPedido=" + idPedido + " ]";
+        return "com.manager.book.Pedido[ id=" + id + " ]";
     }
     
 }

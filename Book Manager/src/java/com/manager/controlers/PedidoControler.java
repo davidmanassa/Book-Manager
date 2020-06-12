@@ -59,10 +59,10 @@ public class PedidoControler {
     public String getEstado(Pedido pedido) {
         int counter = 0;
         for (Pedido p : pedidoList) {
-            if (p.getIdPedido().intValue() == pedido.getIdPedido().intValue() && counter == 0)
+            if (p.getId().intValue() == pedido.getId().intValue() && counter == 0)
                 return "Requisitado";
-            if (p.getIdLivro().getIdLivro().intValue() == pedido.getIdLivro().getIdLivro().intValue()) {
-                if (p.getIdUtilizador().getIdUtilizador().intValue() == pedido.getIdUtilizador().getIdUtilizador().intValue())
+            if (p.getBookID().getId().intValue() == pedido.getBookID().getId().intValue()) {
+                if (p.getUserID().getId().intValue() == pedido.getUserID().getId().intValue())
                     return "Reservado (" + counter + "º na fila)";
                 else
                     counter += 1;
@@ -93,15 +93,15 @@ public class PedidoControler {
     
     public String addNewPedido(Livro livro) {
         
-        novoPedido.setIdLivro(livro);
+        novoPedido.setBookID(livro);
         
-        novoPedido.setIdUtilizador(uc.getMyUser());
+        novoPedido.setUserID(uc.getMyUser());
         
         novoPedido.setDate((BigInteger.valueOf(java.lang.System.currentTimeMillis())));
         
         for (Pedido p : pedidoList) {
-            if (p.getIdUtilizador().getIdUtilizador().intValue() == novoPedido.getIdUtilizador().getIdUtilizador().intValue())
-                if (p.getIdLivro().getIdLivro().intValue() == livro.getIdLivro().intValue()) {
+            if (p.getUserID().getId().intValue() == novoPedido.getUserID().getId().intValue())
+                if (p.getBookID().getId().intValue() == livro.getId().intValue()) {
                     setPedidoErrorMessage("Já fizeste um pedido a este objeto.");
                     return "registered.xhtml";    
                 }
@@ -128,7 +128,7 @@ public class PedidoControler {
             return new ArrayList<>();
         myPedidoList = new ArrayList<>();
         for (Pedido p : getPedidoList())
-            if (p.getIdUtilizador().getIdUtilizador().intValue() == uc.getMyUser().getIdUtilizador().intValue())
+            if (p.getUserID().getId().intValue() == uc.getMyUser().getId().intValue())
                 myPedidoList.add(p);
         return myPedidoList;
     }

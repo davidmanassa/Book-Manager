@@ -8,6 +8,7 @@ package com.manager.book;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,77 +28,78 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author manas
  */
 @Entity
-@Table(name = "LIVRO")
+@Table(name = "livro")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Livro.findAll", query = "SELECT l FROM Livro l")
-    , @NamedQuery(name = "Livro.findByIdLivro", query = "SELECT l FROM Livro l WHERE l.idLivro = :idLivro")
-    , @NamedQuery(name = "Livro.findByNomeLivro", query = "SELECT l FROM Livro l WHERE l.nomeLivro = :nomeLivro")
-    , @NamedQuery(name = "Livro.findByAutorLivro", query = "SELECT l FROM Livro l WHERE l.autorLivro = :autorLivro")
-    , @NamedQuery(name = "Livro.findByEdicaoLivro", query = "SELECT l FROM Livro l WHERE l.edicaoLivro = :edicaoLivro")})
+    , @NamedQuery(name = "Livro.findById", query = "SELECT l FROM Livro l WHERE l.id = :id")
+    , @NamedQuery(name = "Livro.findByName", query = "SELECT l FROM Livro l WHERE l.name = :name")
+    , @NamedQuery(name = "Livro.findByAuthor", query = "SELECT l FROM Livro l WHERE l.author = :author")
+    , @NamedQuery(name = "Livro.findByEdition", query = "SELECT l FROM Livro l WHERE l.edition = :edition")})
 public class Livro implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID_LIVRO")
-    private Integer idLivro;
+    @Column(name = "ID")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "NOME_LIVRO")
-    private String nomeLivro;
+    @Column(name = "Name")
+    private String name;
     @Size(max = 255)
-    @Column(name = "AUTOR_LIVRO")
-    private String autorLivro;
-    @Column(name = "EDICAO_LIVRO")
-    private Integer edicaoLivro;
-    @OneToMany(mappedBy = "idLivro")
+    @Column(name = "Author")
+    private String author;
+    @Size(max = 255)
+    @Column(name = "Edition")
+    private String edition;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "bookID")
     private List<Pedido> pedidoList;
 
     public Livro() {
     }
 
-    public Livro(Integer idLivro) {
-        this.idLivro = idLivro;
+    public Livro(Integer id) {
+        this.id = id;
     }
 
-    public Livro(Integer idLivro, String nomeLivro) {
-        this.idLivro = idLivro;
-        this.nomeLivro = nomeLivro;
+    public Livro(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public Integer getIdLivro() {
-        return idLivro;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdLivro(Integer idLivro) {
-        this.idLivro = idLivro;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getNomeLivro() {
-        return nomeLivro;
+    public String getName() {
+        return name;
     }
 
-    public void setNomeLivro(String nomeLivro) {
-        this.nomeLivro = nomeLivro;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAutorLivro() {
-        return autorLivro;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAutorLivro(String autorLivro) {
-        this.autorLivro = autorLivro;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public Integer getEdicaoLivro() {
-        return edicaoLivro;
+    public String getEdition() {
+        return edition;
     }
 
-    public void setEdicaoLivro(Integer edicaoLivro) {
-        this.edicaoLivro = edicaoLivro;
+    public void setEdition(String edition) {
+        this.edition = edition;
     }
 
     @XmlTransient
@@ -112,7 +114,7 @@ public class Livro implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idLivro != null ? idLivro.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -123,7 +125,7 @@ public class Livro implements Serializable {
             return false;
         }
         Livro other = (Livro) object;
-        if ((this.idLivro == null && other.idLivro != null) || (this.idLivro != null && !this.idLivro.equals(other.idLivro))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -131,7 +133,7 @@ public class Livro implements Serializable {
 
     @Override
     public String toString() {
-        return "com.manager.book.Livro[ idLivro=" + idLivro + " ]";
+        return "com.manager.book.Livro[ id=" + id + " ]";
     }
     
 }

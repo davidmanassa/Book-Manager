@@ -9,7 +9,7 @@
     </h:head>
     <h:body>
         
-        <h1><h:outputText value="Menu de #{UtilizadorControler.myUser.nomeUtilizador}"/></h1>
+        <h1><h:outputText value="Menu de #{UtilizadorControler.myUser.username}"/></h1>
         
         <!-- Adicionar novo Utilizador -->
         <h1>Adiconar novo utilizador</h1>
@@ -21,6 +21,7 @@
                 <h:inputSecret value="#{UtilizadorControler.password}"/>
             </h:panelGrid>
             <h:commandButton value="Guardar" action="#{UtilizadorControler.addNewUtilizador()}"/>
+            <h:outputText value=" #{UtilizadorControler.addUtilizadorError}" style="color:red"/>
         </h:form>
 
         <!-- Rmover Livro -->
@@ -39,19 +40,19 @@
         <h:dataTable value="#{UtilizadorControler.utilizadorList}" var="utilizador" border="1">
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="Utilizador ID"/>
+                    <h:outputText value="ID"/>
                 </f:facet>
-                <h:outputText value="#{utilizador.idUtilizador}"/>
+                <h:outputText value="#{utilizador.id}"/>
             </h:column>
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="Username"/>
                 </f:facet>
-                <h:outputText value="#{utilizador.nomeUtilizador}"/>
+                <h:outputText value="#{utilizador.username}"/>
             </h:column>
         </h:dataTable>
         <h:form>
-            <h:commandButton id="back" value="Back" action="index" />
+            <h:commandButton id="back" value="Back" action="registered" />
         </h:form>
         
     </h:body>

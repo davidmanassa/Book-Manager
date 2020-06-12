@@ -26,27 +26,27 @@
         <h:dataTable value="#{LivroControler.livroList}" var="livro" border="1">
             <h:column>
                 <f:facet name="header">
-                    <h:outputText value="Livro ID"/>
+                    <h:outputText value="ID"/>
                 </f:facet>
-                <h:outputText value="#{livro.idLivro}"/>
+                <h:outputText value="#{livro.id}"/>
             </h:column>
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="Nome"/>
                 </f:facet>
-                <h:outputText value="#{livro.nomeLivro}"/>
+                <h:outputText value="#{livro.name}"/>
             </h:column>
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="Autor"/>
                 </f:facet>
-                <h:outputText value="#{livro.autorLivro}"/>
+                <h:outputText value="#{livro.author}"/>
             </h:column>
             <h:column>
                 <f:facet name="header">
                     <h:outputText value="Edição"/>
                 </f:facet>
-                <h:outputText value="#{livro.edicaoLivro}"/>
+                <h:outputText value="#{livro.edition}"/>
             </h:column>
         </h:dataTable>
     </h:body>

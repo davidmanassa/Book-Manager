@@ -1,30 +1,34 @@
-CREATE TABLE Utilizador (
-    ID_Utilizador INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1,  INCREMENT BY 1),
-    Nome_Utilizador varchar(255) NOT NULL,
-    Password varchar(255),
-    PRIMARY KEY (ID_Utilizador)
-);
+CREATE DATABASE BookManager;
 
+USE BookManager;
+
+CREATE TABLE Utilizador (
+    ID INTEGER NOT NULL AUTO_INCREMENT,
+    Username varchar(30) NOT NULL,
+    Password varchar(255),
+    
+    PRIMARY KEY (ID)
+);
 
 CREATE TABLE Livro (
-    ID_Livro INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1,  INCREMENT BY 1),
-    Nome_Livro varchar(255) NOT NULL,
-    Autor_Livro varchar(255),
-    Edicao_Livro INTEGER,
-    PRIMARY KEY (ID_Livro)
+    ID INTEGER NOT NULL AUTO_INCREMENT,
+    Name varchar(255) NOT NULL,
+    Author varchar(255),
+    Edition varchar(255),
+    
+    PRIMARY KEY (ID)
 );
 
-
-
 CREATE TABLE Pedido (
-    ID_Pedido INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1,  INCREMENT BY 1),
-    ID_Utilizador INTEGER NOT NULL,
-    ID_Livro INTEGER NOT NULL,
+    ID INTEGER NOT NULL AUTO_INCREMENT,
+    UserID INTEGER NOT NULL,
+    BookID INTEGER NOT NULL,
     Date BIGINT,
+    ReturnDate BIGINT DEFAULT NULL,
+    
+    PRIMARY KEY (ID),
 
-    PRIMARY KEY (ID_Pedido),
-
-    FOREIGN KEY (ID_Utilizador) REFERENCES Utilizador(ID_Utilizador),
-    FOREIGN KEY (ID_Livro) REFERENCES Livro(ID_Livro)
+    FOREIGN KEY (UserID) REFERENCES Utilizador(ID),
+    FOREIGN KEY (BookID) REFERENCES Livro(ID)
 
 );

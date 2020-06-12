@@ -8,6 +8,7 @@ package com.manager.book;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,12 +28,12 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author manas
  */
 @Entity
-@Table(name = "UTILIZADOR")
+@Table(name = "utilizador")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Utilizador.findAll", query = "SELECT u FROM Utilizador u")
-    , @NamedQuery(name = "Utilizador.findByIdUtilizador", query = "SELECT u FROM Utilizador u WHERE u.idUtilizador = :idUtilizador")
-    , @NamedQuery(name = "Utilizador.findByNomeUtilizador", query = "SELECT u FROM Utilizador u WHERE u.nomeUtilizador = :nomeUtilizador")
+    , @NamedQuery(name = "Utilizador.findById", query = "SELECT u FROM Utilizador u WHERE u.id = :id")
+    , @NamedQuery(name = "Utilizador.findByUsername", query = "SELECT u FROM Utilizador u WHERE u.username = :username")
     , @NamedQuery(name = "Utilizador.findByPassword", query = "SELECT u FROM Utilizador u WHERE u.password = :password")})
 public class Utilizador implements Serializable {
 
@@ -40,45 +41,45 @@ public class Utilizador implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID_UTILIZADOR")
-    private Integer idUtilizador;
+    @Column(name = "ID")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "NOME_UTILIZADOR")
-    private String nomeUtilizador;
+    @Size(min = 1, max = 30)
+    @Column(name = "Username")
+    private String username;
     @Size(max = 255)
-    @Column(name = "PASSWORD")
+    @Column(name = "Password")
     private String password;
-    @OneToMany(mappedBy = "idUtilizador")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
     private List<Pedido> pedidoList;
 
     public Utilizador() {
     }
 
-    public Utilizador(Integer idUtilizador) {
-        this.idUtilizador = idUtilizador;
+    public Utilizador(Integer id) {
+        this.id = id;
     }
 
-    public Utilizador(Integer idUtilizador, String nomeUtilizador) {
-        this.idUtilizador = idUtilizador;
-        this.nomeUtilizador = nomeUtilizador;
+    public Utilizador(Integer id, String username) {
+        this.id = id;
+        this.username = username;
     }
 
-    public Integer getIdUtilizador() {
-        return idUtilizador;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdUtilizador(Integer idUtilizador) {
-        this.idUtilizador = idUtilizador;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getNomeUtilizador() {
-        return nomeUtilizador;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNomeUtilizador(String nomeUtilizador) {
-        this.nomeUtilizador = nomeUtilizador;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -101,7 +102,7 @@ public class Utilizador implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idUtilizador != null ? idUtilizador.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -112,7 +113,7 @@ public class Utilizador implements Serializable {
             return false;
         }
         Utilizador other = (Utilizador) object;
-        if ((this.idUtilizador == null && other.idUtilizador != null) || (this.idUtilizador != null && !this.idUtilizador.equals(other.idUtilizador))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -120,7 +121,7 @@ public class Utilizador implements Serializable {
 
     @Override
     public String toString() {
-        return "com.manager.book.Utilizador[ idUtilizador=" + idUtilizador + " ]";
+        return "com.manager.book.Utilizador[ id=" + id + " ]";
     }
     
 }
