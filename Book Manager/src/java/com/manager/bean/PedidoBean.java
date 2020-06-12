@@ -1,6 +1,7 @@
 package com.manager.bean;
 
 import com.manager.book.Pedido;
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -34,6 +35,12 @@ public class PedidoBean {
             pedido = em.merge(pedido);
 }
         em.remove(pedido);
+    }
+    
+    public void setReturnDate(Pedido pedido, long date) {
+        Pedido p = em.find(Pedido.class, pedido.getId());
+        p.setReturnDate(BigInteger.valueOf(date));
+        em.merge(p);
     }
     
 }
