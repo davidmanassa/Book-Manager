@@ -2,7 +2,6 @@ package com.manager.controlers;
 
 import com.manager.bean.UtilizadorBean;
 import com.manager.book.Utilizador;
-import com.sun.webkit.Utilities;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -115,14 +114,17 @@ public class UtilizadorControler implements Serializable {
         this.novoUtilizador = novoUtilizador;
     }
     
-    public String addNewUtilizador() {
+    public String addNewUtilizador(int page) {
         
         try {
             
             for (Utilizador u : utilizadorList) {
                 if (u.getUsername().equalsIgnoreCase(username)) {
                     setAddUtilizadorError("Já existe um utilizador com esse username.");
-                    return "listUtilizadores.xhtml";
+                    if (page == 1)
+                        return "listUtilizadores.xhtml";
+                    else
+                        return "index.xhtml";
                 }
             }
             
@@ -138,7 +140,10 @@ public class UtilizadorControler implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "listUtilizadores.xhtml";
+        if (page == 1)
+            return "listUtilizadores.xhtml";
+        else
+            return "index.xhtml";
     }
     
     public Utilizador getUtilizador(int id) {
@@ -163,7 +168,7 @@ public class UtilizadorControler implements Serializable {
                 myUser = new Utilizador(1, "admin");
                 myUser.setPassword(Password.getSaltedHash("admin"));
                 setNovoUtilizador(myUser);
-                addNewUtilizador();
+                addNewUtilizador(1);
             } catch (Exception e) {
                 
             }
@@ -185,7 +190,6 @@ public class UtilizadorControler implements Serializable {
             }
         } catch (Exception e) {
             setFailMessage("Erro no sistema de Login.");
-            e.printStackTrace();
         }
         return "index.xhtml";
     }

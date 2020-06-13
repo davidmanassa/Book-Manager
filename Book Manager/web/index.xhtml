@@ -22,6 +22,19 @@
             <h:outputText value=" #{UtilizadorControler.failMessage}" style="color:red"/> <br></br>
         </h:form> <br></br>
         
+        <!-- Adicionar novo Utilizador -->
+        <h1>Registar</h1>
+        <h:form>
+            <h:panelGrid columns="2" >
+                <h:outputLabel value="Username: "/>
+                <h:inputText value="#{UtilizadorControler.username}"/>
+                <h:outputLabel value="Password: "/>
+                <h:inputSecret value="#{UtilizadorControler.password}"/>
+            </h:panelGrid>
+            <h:commandButton value="Registo" action="#{UtilizadorControler.addNewUtilizador(0)}"/>
+            <h:outputText value=" #{UtilizadorControler.addUtilizadorError}" style="color:red"/>
+        </h:form>
+        
         <h1>Lista de Livros</h1>
         <h:dataTable value="#{LivroControler.livroList}" var="livro" border="1">
             <h:column>

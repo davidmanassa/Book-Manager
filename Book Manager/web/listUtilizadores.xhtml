@@ -28,7 +28,7 @@
                 <h:outputLabel value="Password: "/>
                 <h:inputSecret value="#{UtilizadorControler.password}"/>
             </h:panelGrid>
-            <h:commandButton value="Guardar" action="#{UtilizadorControler.addNewUtilizador()}"/>
+            <h:commandButton value="Guardar" action="#{UtilizadorControler.addNewUtilizador(1)}"/>
             <h:outputText value=" #{UtilizadorControler.addUtilizadorError}" style="color:red"/>
         </h:form>
 
