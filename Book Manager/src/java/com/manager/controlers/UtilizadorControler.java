@@ -3,11 +3,13 @@ package com.manager.controlers;
 import com.manager.bean.UtilizadorBean;
 import com.manager.book.Utilizador;
 import com.sun.webkit.Utilities;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 @Named (value = "UtilizadorControler")
@@ -32,6 +34,11 @@ public class UtilizadorControler implements Serializable {
     
     String removeUtilizadorError = "";
     String addUtilizadorError = "";
+    
+    public void canAccess() throws IOException {
+        if (myUser == null)
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+    }
 
     public String getAddUtilizadorError() {
         return addUtilizadorError;
