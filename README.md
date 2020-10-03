@@ -1,4 +1,6 @@
-# TP2
+# Trabalho Prático 2
+
+Projeto de avaliação realizado para a cadeira de Sistemas Distribuídos no ano de 2019/2020.
 
 ## OBJETIVOS
 
